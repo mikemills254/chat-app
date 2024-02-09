@@ -1,0 +1,23 @@
+{
+  "name": "chat-app",
+  "version": "1.0.0",
+  "description": "branch international chat app",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Mike Mills",
+  "license": "MIT",
+  "optionalDependencies": {
+    "bufferutil": "^4.0.8",
+    "express": "^4.18.2",
+    "socket.io": "^4.7.4",
+    "utf-8-validate": "^5.0.10"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.1",
+    "nodemon": "^3.0.3"
+  }
+}
