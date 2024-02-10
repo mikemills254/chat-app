@@ -19,25 +19,35 @@ const UserSchema = mongoose.Schema({
     chats: [{
         type: mongoose.Types.ObjectId,
         ref: 'Message'
-    }]
+    }],
+    role: {
+        type: String,
+        enum: ['Client', 'Agent'],
+        default: 'Client'
+    }
 }, { timestamps: true });
 
 const MessageSchema = mongoose.Schema({
     sender: {
-        type: mongoose.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "User",
         required: true
     },
     recipient: {
-        type: mongoose.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "User",
         required: true
     },
     content: {
         type: String,
-        required: true,
+        required: true
+    },
+    urgency: {
+        type: String,
+        enum: ['Regular', 'Urgent'],
+        default: 'Regular'
     }
-});
+}, { timestamps: true });
 
 const User = mongoose.model('User', UserSchema);
 const Message = mongoose.model('Message', MessageSchema);

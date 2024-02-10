@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import server from './Utilities/websocket.js';
 import { Connect } from './Utilities/database.js'
+import router from './Routes/routes.js';
 dotenv.config();
 
 const app = express();
@@ -14,6 +15,8 @@ app.get('/', (req, res) => {
         message: "Welcome to branch chat app"
     });
 });
+
+app.use('/api/v1', router)
 
 server.listen(PORT, async () => {
     try {

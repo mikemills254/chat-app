@@ -41,6 +41,7 @@ export const register = async (req, res) => {
                 username,
                 password: hashedPassword,
                 email,
+                role: req.originalUrl.startsWith('/agent') ? 'Agent' : 'Client' // Infer role based on URL
             });
 
             await user.save();
@@ -49,11 +50,15 @@ export const register = async (req, res) => {
 
             res.cookie('access_token', token, { httpOnly: true, path: '/' });
 
-            return res.status(201).json({ 
-                msg: "User registered successfully.",
-                data: user,
-                token: token
-            });
+            if (req.originalUrl.startsWith('/agent')) {
+                return res.redirect('/agent/dashboard');
+            } else {
+                return res.status(201).json({ 
+                    msg: "User registered successfully.",
+                    data: user,
+                    token: token
+                });
+            }
         }
     } catch (error) {
         console.error(error);
@@ -73,11 +78,15 @@ export const login = async (req, res) => {
         const token = generateToken(user);
         res.cookie("access_token", token, { httpOnly: true, path: "/" });
 
-        return res.status(200).json({
-            msg: 'Login Successful....!',
-            username: user.username ?? user.username,
-            token
-        });
+        if (req.originalUrl.startsWith('/agent')) {
+            return res.redirect('/agent/dashboard');
+        } else {
+            return res.status(200).json({
+                msg: 'Login Successful....!',
+                username: user.username ?? user.username,
+                token
+            });
+        }
     } catch (error) {
         console.error(error);
         return res.status(500).json({
