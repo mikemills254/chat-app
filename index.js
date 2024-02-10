@@ -2,7 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import server from './Utilities/websocket.js';
-
+import { Connect } from './Utilities/database.js'
 dotenv.config();
 
 const app = express();
@@ -15,6 +15,13 @@ app.get('/', (req, res) => {
     });
 });
 
-server.listen(PORT, () => {
-    console.log('Server up and running');
+server.listen(PORT, async () => {
+    try {
+        const response = await Connect()
+        if(response.status === "success"){
+            console.log('Database Connected');
+        }
+    } catch (error) {
+        console.log(error)
+    }
 });
