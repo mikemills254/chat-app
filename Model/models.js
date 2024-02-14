@@ -36,7 +36,7 @@ const MessageSchema = mongoose.Schema({
     recipient: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
-        required: true
+        required: false
     },
     content: {
         type: String,
@@ -46,6 +46,18 @@ const MessageSchema = mongoose.Schema({
         type: String,
         enum: ['Regular', 'Urgent'],
         default: 'Regular'
+    },
+    agent: {
+        type: String,
+        required: false
+    },
+    socketId: {
+        type: String,
+        required: false
+    },
+    username: {
+        type: String,
+        required: false
     }
 }, { timestamps: true });
 
